@@ -1,6 +1,8 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const schema = require('./src/shema/shema');
+const schema = require('./src/shema/schemaSprint');
+// const schema = require('./src/shema/schemaClient');
+// const schema = require('./src/shema/schemaTask');
 const mongoose = require('mongoose');
 //var cors = require('cors');
 
@@ -9,12 +11,12 @@ const expressPlayground = require('graphql-playground-middleware-express')
 
 const app = express();
 
-const PORT = 5000;
+const PORT = 4000;
 
 //app.use(cors());
 
 
-mongoose.connect('mongodb+srv://luc-leveque:eDVgCGoKsVofYoHC@cluster0-a9mak.mongodb.net/playground',
+mongoose.connect('mongodb+srv://eaudeux:EF6JfFjNSdt0xosw@graphql-eiake.mongodb.net/test?retryWrites=true&w=majority',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
@@ -36,5 +38,5 @@ app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
 //Demarrage du serveur
 app.listen(PORT , () => {
-    console.log('app listening on port 5000')
+    console.log('app listening on port 4000')
 });
