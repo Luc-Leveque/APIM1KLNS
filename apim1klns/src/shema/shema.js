@@ -26,6 +26,12 @@ const UserType = new GraphQLObjectType({
         phoneNumber: { type: GraphQLString },
         status:      { type: GraphQLString },
         profil:      { type: GraphQLString },
+        project: { 
+            type: ProjectType,
+            resolve(parent, args) {
+                return Project.findById(parent.idProject);
+            }
+        },
     })
 })
 
@@ -33,6 +39,7 @@ const ProjectType = new GraphQLObjectType({
     name: 'Project',
     fields: () => ({
         id:     { type: GraphQLID },
+        title:     { type: GraphQLString },
         quote_price:  { type: GraphQLString },
         terminationPeriods: { type: GraphQLString },
         startDate: { type: GraphQLString },
@@ -40,6 +47,12 @@ const ProjectType = new GraphQLObjectType({
         status: { type: GraphQLString },
         stacks: { type: GraphQLString },
         costDays: { type: GraphQLString },
+        user: { 
+            type: UserType,
+            resolve(parent, args) {
+                return User.findById(parent.idUser);
+            }
+        },
         client: { 
             type: ClientType,
             resolve(parent, args) {
@@ -73,13 +86,28 @@ const RootQuery = new GraphQLObjectType({
                 id: {type:GraphQLID}
             },
             resolve(parent, args) {
-                return User.findById({'_id':args.id})
+                return User.findById(args.id)
             }
         },
         users: {
             type: new GraphQLList(UserType),
             resolve(parent, args) {
                  return User.find()
+            }
+        },
+        project: {
+            type: ProjectType,
+            args: {
+                id: {type:GraphQLID}
+            },
+            resolve(parent, args) {
+                return Project.findById(args.id)
+            }
+        },
+        projects: {
+            type: new GraphQLList(ProjectType),
+            resolve(parent, args) {
+                 return Project.find()
             }
         },
      }
@@ -118,13 +146,9 @@ const Mutation = new GraphQLObjectType({
                     Project.findById(args.idProject).populate('User').
                     exec(function (err, project) {
                         if (err) return handleError(err);
-                        console.log('The author is %s', project._id);
                         project.idUser.push(user._id); 
                         project.save();
                       });
-
-
-
                 }
                 return user.save();
             }
@@ -183,44 +207,12 @@ const Mutation = new GraphQLObjectType({
                     exec(function (err, user) {
                       if (err) return handleError(err);
                       user.idProject.push(args.idUser); 
-                      User.save();
+                      user.save();
                     });
                 }
-                return project.save(); ;
+                return project.save();
             }
-        },
-        updateUser: {
-            type: UserType,
-            args:{
-                id: {type: GraphQLString}, 
-                firstName: {type: GraphQLString},
-                lastName: {type: GraphQLString},
-            },
-            resolve(parent, args){
-                return User.updateOne(
-                    {
-                        'id':args.id
-                    },
-                    {
-                        'firstName': args.firstName,
-                        'lastName': args.lastName, 
-                    }
-                )
-            }
-        },
-        deleteUser: {
-            type: UserType,
-            args:{
-                id: {type: GraphQLString}, 
-            },
-            resolve(parent, args){
-                return User.deleteOne(
-                    {
-                        'id':args.id
-                    }
-                )
-            }
-        },
+        }
     }
 })
 
