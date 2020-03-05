@@ -1,8 +1,8 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const schema = require('./shema/shema');
+const schema = require('./src/shema/shema');
 const mongoose = require('mongoose');
-var cors = require('cors');
+//var cors = require('cors');
 
 const expressPlayground = require('graphql-playground-middleware-express')
   .default
@@ -11,7 +11,7 @@ const app = express();
 
 const PORT = 5000;
 
-app.use(cors());
+//app.use(cors());
 
 
 mongoose.connect('mongodb+srv://luc-leveque:eDVgCGoKsVofYoHC@cluster0-a9mak.mongodb.net/playground',
