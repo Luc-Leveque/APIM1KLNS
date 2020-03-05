@@ -12,7 +12,12 @@
     "express-graphql": "^0.9.0",
     "graphql": "^14.6.0",
     "graphql-playground-middleware-express": "^1.7.12",
-    "mongoose": "^5.9.0"
+    "jsonwebtoken": "^8.5.1",
+    "mongoose": "^5.9.0",
+    "passport": "^0.4.1",
+    "passport-jwt": "^4.0.0",
+    "passport-local": "^1.0.0",
+    "passport-local-mongoose": "^6.0.1"
   },
   "devDependencies": {
     "lodash": "^4.17.15",
