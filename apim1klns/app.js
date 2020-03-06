@@ -34,13 +34,17 @@ mongoose.connection.once('open', () => {
 })
 
 app.post('/signup', (req, res) => {
-    User.register(new User({ email: req.body.email }), req.body.password, (err, user) => {
+    User.register(new User({ email: req.body.email,
+                             firstName: req.body.firstName,
+                             lastName: req.body.lastName,
+                          }), req.body.password, (err, user) => {
       if (err) {
         res.statusCode = 500;
         res.setHeader('Content-Type', 'application/json');
         res.json({ err: err });
       }
-      else {
+      else 
+      {
         passport.authenticate('local')(req, res, () => {
           const token = authenticate.generateToken({ _id: req.user._id });
           res.statusCode = 200;
