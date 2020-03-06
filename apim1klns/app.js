@@ -74,6 +74,7 @@ app.use('/graphql', authenticate.verifyUser,  graphqlHTTP((request, response, gr
 app.get('/playground', expressPlayground({ endpoint: '/graphql' }))
 
 //Demarrage du serveur
-app.listen(PORT , () => {
-    console.log('app listening on port 5000')
+var server = app.listen(process.env.PORT || PORT, function () {
+  var port = server.address().port;
+  console.log("Express is working on port " + port);
 });
