@@ -117,9 +117,10 @@ const RootQuery = new GraphQLObjectType({
 const Mutation = new GraphQLObjectType({
     name:'Mutation',
     fields: {
-        addUser: {
+        updateUser: {
             type: UserType,
             args:{
+                id: {type: GraphQLID}, 
                 firstName:   { type: GraphQLString },
                 lastName:    { type: GraphQLString },
                 company:     { type: GraphQLString },
@@ -128,66 +129,115 @@ const Mutation = new GraphQLObjectType({
                 phoneNumber: { type: GraphQLString },
                 status:      { type: GraphQLString },
                 profil:      { type: GraphQLString },
-                idProject :  { type: GraphQLID }
             },
             resolve(parent, args){
-                let user = new User({
-                    firstName:   args.firstName,
-                    lastName:    args.lastName,
-                    company:     args.company,
-                    siret:       args.siret,
-                    mail:        args.mail,
-                    phoneNumber: args.phoneNumber,
-                    status:      args.status,
-                    profil:      args.profil,
-                    idProject:   args.idProject,
+                return User.updateOne(
+                    {
+                        '_id':args.id
+                    },
+                    {
+                        'firstName': args.firstName,
+                        'lastName': args.lastName, 
+                        'company': args.company,
+                        'siret': args.siret,
+                        'mail': args.mail, 
+                        'phoneNumber': args.phoneNumber,
+                        'status': args.status,
+                        'profil': args.profil
+                    }
+                )
+            }
+        },
+        addUserToProject: { type: ProjectType,
+            args:{
+                idProject : { type: GraphQLID },
+                idUser :    { type: GraphQLID }
+            },
+            resolve(parent, args){
+                User.findById(args.idUser).populate('Project').
+                exec(function (err, user) {
+                    if (err) return handleError(err);
+                    user.idProject.push(args.idProject); 
+                    user.save();
                 });
-                if(args.idProject){
-                    Project.findById(args.idProject).populate('User').
-                    exec(function (err, project) {
-                        if (err) return handleError(err);
-                        project.idUser.push(user._id); 
-                        project.save();
-                      });
-                }
-                return user.save();
+                Project.findById(args.idProject).populate('User').
+                exec(function (err, project) {
+                    if (err) return handleError(err);
+                    project.idUser.push(args.idUser);
+                    project.save();
+                });
+                return true;
+            }
+        },
+        deleteUserFromProject: { type: ProjectType,
+            args:{
+                idProject : { type: GraphQLID },
+                idUser :    { type: GraphQLID }
+            },
+            resolve(parent, args){
+                User.findById(args.idUser).populate('Project').
+                exec(function (err, user) {
+                    if (err) return handleError(err);
+                    user.idProject.remove(args.idProject); 
+                    user.save();
+                });
+                Project.findById(args.idProject).populate('User').
+                exec(function (err, project) {
+                    if (err) return handleError(err);
+                    project.idUser.remove(args.idUser);
+                    project.save();
+                });
+                return true;
+            }
+        },
+        deleteUser: {
+            type: UserType,
+            args:{
+                id: {type: GraphQLID}, 
+            },
+            resolve(parent, args){
+                return User.deleteOne(
+                    {
+                        '_id':args.id
+                    }
+                )
             }
         },
         addClient: {
             type: ClientType,
             args:{
-                corporateName:   { type: GraphQLString},
-                adress:    { type: GraphQLString},
-                contactLastName:     { type: GraphQLString },
-                contactFirstName:       { type: GraphQLString },
+                corporateName:      { type: GraphQLString},
+                adress:             { type: GraphQLString},
+                contactLastName:    { type: GraphQLString },
+                contactFirstName:   { type: GraphQLString },
                 phoneNumber:        { type: GraphQLString },
-                mail: { type: GraphQLString },
+                mail:               { type: GraphQLString },
             },
             resolve(parent, args){
                 let client = new Client({
-                    corporateName:   args.corporateName,
-                    adress:    args.adress,
-                    contactLastName:     args.contactLastName,
-                    contactFirstName:       args.contactFirstName,
-                    phoneNumber: args.phoneNumber,
-                    mail:        args.mail,
+                    corporateName:      args.corporateName,
+                    adress:             args.adress,
+                    contactLastName:    args.contactLastName,
+                    contactFirstName:   args.contactFirstName,
+                    phoneNumber:        args.phoneNumber,
+                    mail:               args.mail,
                 });        
                 return client.save();
             }
         },
         addProject: {
-            type: UserType,
+            type: ProjectType,
             args:{
-                title:   { type: GraphQLString},
-                quotePrice:    { type: GraphQLString},
+                title:                  { type: GraphQLString},
+                quotePrice:             { type: GraphQLString},
                 terminationPeriods:     { type: GraphQLString },
-                startDate:       { type: GraphQLString },
-                endDate:        { type: GraphQLString },
-                status: { type: GraphQLString },
-                stacks:      { type: GraphQLString },
-                costDays:      { type: GraphQLString },
-                idClient :  { type: GraphQLString },
-                idUser :  { type: GraphQLID }
+                startDate:              { type: GraphQLString },
+                endDate:                { type: GraphQLString },
+                status:                 { type: GraphQLString },
+                stacks:                 { type: GraphQLString },
+                costDays:               { type: GraphQLString },
+                idClient :              { type: GraphQLString },
+                idUser :                { type: GraphQLID }
             },
             resolve(parent, args){
                 let project = new Project({
@@ -202,14 +252,12 @@ const Mutation = new GraphQLObjectType({
                     idClient:           args.idClient,
                     idUser:             args.idUser
                 });
-                if(args.idUser){
-                    User.findById(args.idUser).populate('Project').
-                    exec(function (err, user) {
-                      if (err) return handleError(err);
-                      user.idProject.push(args.idUser); 
-                      user.save();
-                    });
-                }
+                User.findById(args.idUser).populate('Project').
+                exec(function (err, user) {
+                    if (err) return handleError(err);
+                    user.idProject.push(args.idUser); 
+                    user.save();
+                });
                 return project.save();
             }
         }
