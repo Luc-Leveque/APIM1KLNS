@@ -10,6 +10,5 @@ const clientSchema = new Schema({
   lastName: String,
   telNumber: Number,
   email: String,
-  idProject: String
 })
 module.exports = mongoose.model('Client', clientSchema);
