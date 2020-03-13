@@ -1,9 +1,12 @@
+const graphql = require('graphql');
+// const SprintType= require('./sprint.type');
+
 const { GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
   GraphQLID,
-  GraphQLSCchema,
-  GraphQLList
+  GraphQLSchema,
+  GraphQLList,
 } = graphql;
 
 const TaskType = new GraphQLObjectType({
@@ -23,9 +26,4 @@ const TaskType = new GraphQLObjectType({
   })
 })
 
-export {
-  TaskType,
-}
-
-// export default TaskType;
-const SprintType = require('./sprint.type'); 
+module.exports.TaskType = TaskType;  

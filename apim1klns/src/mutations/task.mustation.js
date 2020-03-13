@@ -1,12 +1,22 @@
-const { GraphQLObjectType,
-  GraphQLInt,
-  GraphQLString,
-  GraphQLID,
-  GraphQLSchema,
-  GraphQLList
-} = graphql;
+const graphql = require('graphql');
 
-const TaskType = require ('../models/task.type');
+const User =require('../models/user');
+const Project =require('../models/project');
+const Client =require('../models/client');
+const Task = require('../models/task');
+
+const ClientType= require('../type/client.type');
+const UserType= require('../type/user.type');
+const ProjectType= require('../type/project.type');
+const TaskType = require('../type/task.type');
+
+const { GraphQLObjectType,
+        GraphQLInt,
+        GraphQLString,
+        GraphQLID,
+        GraphQLSchema,
+        GraphQLList,
+} = graphql;
 
 const addTask = {
   args: {
@@ -29,7 +39,7 @@ const addTask = {
 };
 
 const updateTask = {
-  type: TaskType,
+  type: TaskType.TaskType,
   args: {
     id: {type: GraphQLID},
     title: {type:GraphQLString},
@@ -52,7 +62,7 @@ const updateTask = {
 }; 
 
 const deleteTask = {
-  type: TaskType,
+  type: TaskType.TaskType,
   args: {
     id: {type: GraphQLID}
   },
@@ -63,9 +73,6 @@ const deleteTask = {
   }
 }
 
-
-export {
-  addTask,
-  updateTask,
-  deleteTask
-};
+module.exports.addTask = addTask;
+module.exports.updateTask = updateTask;
+module.exports.deleteTask = deleteTask;
