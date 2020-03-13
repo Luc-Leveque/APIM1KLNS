@@ -26,7 +26,7 @@ const RootQueryType = new GraphQLObjectType({
         sprint: SprintQuery.sprint,
         sprints: SprintQuery.sprints,
         task: TaskQuery.task,
-        tasks: TaskQuery.task
+        tasks: TaskQuery.tasks
     })
 });
 

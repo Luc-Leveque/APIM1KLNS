@@ -47,7 +47,7 @@ const addClient = {
 };
 
 const updateClient = {
-  type: ClientType,
+  type: ClientType.ClientType,
   args: {
     id: {type: GraphQLID},
     clientName : {type: GraphQLString},
@@ -59,7 +59,7 @@ const updateClient = {
     email: {type:GraphQLString}
   },
     resolve(parent, args){
-      return ClientType.findByIdAndUpdate(
+      return Client.findByIdAndUpdate(
         args.id,
         {
           clientName:args.clientName,
@@ -76,7 +76,7 @@ const updateClient = {
 };
 
 const deleteClient = {
-  type: ClientType,
+  type: ClientType.ClientType,
   args: {
     id: {type: GraphQLID}
   },

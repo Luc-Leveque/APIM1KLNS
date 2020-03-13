@@ -43,7 +43,7 @@ const addSprint=  {
 };
 
 const updateSprint = {
-  type: SprintType,
+  type: SprintType.SprintType,
   args: {
     id: {type: GraphQLID},
     title: {type: GraphQLString},
@@ -67,7 +67,7 @@ const updateSprint = {
 };
 
 const deleteSprint = {
-  type: SprintType,
+  type: SprintType.SprintType,
   args: {
     id:{type: GraphQLID}
   },

@@ -21,7 +21,7 @@ const { GraphQLObjectType,
 } = graphql;
 
 const addProject = {
-  type: ProjectType,
+  type: ProjectType.ProjectType,
   args:{
       title:                  { type: GraphQLString},
       quotePrice:             { type: GraphQLString},

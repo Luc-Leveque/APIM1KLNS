@@ -39,7 +39,7 @@ const addTask = {
 };
 
 const updateTask = {
-  type: TaskType,
+  type: TaskType.TaskType,
   args: {
     id: {type: GraphQLID},
     title: {type:GraphQLString},
@@ -62,7 +62,7 @@ const updateTask = {
 }; 
 
 const deleteTask = {
-  type: TaskType,
+  type: TaskType.TaskType,
   args: {
     id: {type: GraphQLID}
   },
