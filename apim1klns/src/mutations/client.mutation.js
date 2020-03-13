@@ -21,6 +21,7 @@ const { GraphQLObjectType,
 } = graphql;
 
 const addClient = {
+  type: ClientType.ClientType,
   args: {
     _id: {type: GraphQLID},
     clientName : {type: GraphQLString},

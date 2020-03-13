@@ -33,5 +33,5 @@ const tasks = {
   }
 };
 
-module.exports.users = task ;  
-module.exports.user = tasks;
+module.exports.task = task ;  
+module.exports.tasks = tasks;

@@ -19,6 +19,7 @@ const { GraphQLObjectType,
 } = graphql;
 
 const addTask = {
+  type: TaskType.TaskType,
   args: {
     _id: {type: GraphQLID},
     title: {type: GraphQLString},

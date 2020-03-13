@@ -21,7 +21,7 @@ const { GraphQLObjectType,
 } = graphql;
 
 const addSprint=  {
-  type: SprintType,
+  type: SprintType.SprintType,
   args: {
     _id : {type: GraphQLID},
     title : {type: GraphQLString},

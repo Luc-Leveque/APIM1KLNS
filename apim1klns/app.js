@@ -22,7 +22,7 @@ const PORT = 5000;
 app.use(cors());
 
 
-mongoose.connect('mongodb+srv://eaudeux:EF6JfFjNSdt0xosw@graphql-eiake.mongodb.net/test?retryWrites=true&w=majority',
+mongoose.connect('mongodb+srv://luc-leveque:eDVgCGoKsVofYoHC@cluster0-a9mak.mongodb.net/playground',
     {
         useNewUrlParser: true,
         useUnifiedTopology: true,
