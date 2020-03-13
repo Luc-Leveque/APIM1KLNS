@@ -1,10 +1,12 @@
+const graphql = require('graphql');
+const ProjectType= require('./project.type');
 
 const { GraphQLObjectType,
   GraphQLInt,
   GraphQLString,
   GraphQLID,
   GraphQLSchema,
-  GraphQLList
+  GraphQLList,
 } = graphql;
 
 const SprintType = new GraphQLObjectType({
@@ -14,19 +16,14 @@ const SprintType = new GraphQLObjectType({
       title : {type: GraphQLString},
       dateStart : {type: GraphQLString},
       dateEnd : {type:GraphQLInt},
-      status : {type:GraphQLInt}
-      // project: {
-      //   type: ProjectType,
-      //   resolve(parent, args) {
-      //     return Project.findById(parent.idProject);
-      //   }
-      // }  
+      status : {type:GraphQLInt},
+      project: {
+        type: ProjectType.ProjectType,
+        resolve(parent, args) {
+          return Project.findById(parent.idProject);
+        }
+      }  
   })
 })
 
-export {
-  SprintType
-}
-
-// export default SprintType;
-//  import ProjectType from './project.type'; 
+module.exports.SprintType = SprintType ; 

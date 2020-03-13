@@ -1,13 +1,6 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-<<<<<<< HEAD
-const schema = require('./src/graphql/schema');
-// const schema = require('./src/shema/schemaSprint');
-// const schema = require('./src/shema/schemaClient');
-// const schema = require('./src/shema/schemaTask');
-=======
 const schema = require('./src/shema/shema_test');
->>>>>>> 86e5a8b7cd02cc51224db1ca06ab5a4d4959dd87
 const mongoose = require('mongoose');
 
 const passport = require('passport');
@@ -20,15 +13,11 @@ const expressPlayground = require('graphql-playground-middleware-express')
 
 const app = express();
 
-<<<<<<< HEAD
-const PORT = 4000;
-=======
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(passport.initialize());
 
 const PORT = 5000;
->>>>>>> 86e5a8b7cd02cc51224db1ca06ab5a4d4959dd87
 
 app.use(cors());
 

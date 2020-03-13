@@ -1,15 +1,26 @@
-import { GraphQLObjectType,
-  GraphQLInt,
-  GraphQLString,
-  GraphQLID,
-  GraphQLSchema,
-  GraphQLList
-} from graphql;
+const graphql = require('graphql');
 
-import SprintType from '../models/client.type';
+const User =require('../models/user');
+const Project =require('../models/project');
+const Client =require('../models/client');
+const Task = require('../models/task');
+const Sprint = require('../models/sprint');
 
+const ClientType= require('../type/client.type');
+const UserType= require('../type/user.type');
+const ProjectType= require('../type/project.type');
+const TaskType = require('../type/task.type');
+const SprintType = require('../type/sprint.type');
 
-export const addSprint=  {
+const { GraphQLObjectType,
+        GraphQLInt,
+        GraphQLString,
+        GraphQLID,
+        GraphQLSchema,
+        GraphQLList,
+} = graphql;
+
+const addSprint=  {
   type: SprintType,
   args: {
     _id : {type: GraphQLID},
@@ -31,7 +42,7 @@ export const addSprint=  {
   }
 };
 
-export const updateSprint = {
+const updateSprint = {
   type: SprintType,
   args: {
     id: {type: GraphQLID},
@@ -55,7 +66,7 @@ export const updateSprint = {
     }
 };
 
-export const deleteSprint = {
+const deleteSprint = {
   type: SprintType,
   args: {
     id:{type: GraphQLID}
@@ -67,8 +78,6 @@ export const deleteSprint = {
   }
 }
 
-// export {
-//   addSprint,
-//   updateSprint,
-//   deleteSprint
-// };
+module.exports.addSprint = addSprint;
+module.exports.updateSprint = updateSprint;
+module.exports.deleteSprint = deleteSprint;
