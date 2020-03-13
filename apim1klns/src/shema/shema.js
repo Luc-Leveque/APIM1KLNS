@@ -1,5 +1,5 @@
 const graphql = require('graphql');
-const _=require('lodash');
+
 
 const User =require('../models/user');
 const Project =require('../models/project');
