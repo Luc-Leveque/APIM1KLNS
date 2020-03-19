@@ -57,4 +57,19 @@ const addProject = {
   }
 }
 
+const deleteProject = {
+    type: ProjectType.ProjectType,
+    args:{
+        id: {type: GraphQLID}, 
+    },
+    resolve(parent, args){
+        return Project.deleteOne(
+            {
+                '_id':args.id
+            }
+        )
+    }
+};
+
 module.exports.addProject = addProject;
+module.exports.deleteProject = deleteProject;

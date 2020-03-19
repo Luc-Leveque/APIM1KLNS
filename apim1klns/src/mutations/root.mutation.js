@@ -19,7 +19,11 @@ const RootMutationType = new GraphQLObjectType({
     name: 'RootMutation',
     fields: () => ({
         updateUser: UserMutation.updateUser,
+        addUserToProject: UserMutation.addUserToProject,
+        deleteUserFromProject: UserMutation.deleteUserFromProject,
+        deleteUser: UserMutation.deleteUser,
         addProject: ProjectMutation.addProject,
+        deleteProject: ProjectMutation.deleteProject,
         addClient: ClientMutation.addClient,
         updateClient: ClientMutation.updateClient,
         deleteClient: ClientMutation.deleteClient,

@@ -1,6 +1,6 @@
 const express = require('express');
 const graphqlHTTP = require('express-graphql');
-const schema = require('./src/shema/shema_test');
+const schema = require('./src/shema/shema');
 const mongoose = require('mongoose');
 
 const passport = require('passport');

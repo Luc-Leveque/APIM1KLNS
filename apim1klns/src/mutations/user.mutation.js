@@ -48,4 +48,67 @@ const updateUser = {
     }
 };
 
+const addUserToProject = {
+    type: ProjectType.ProjectType,
+    args:{
+        idProject : { type: GraphQLID },
+        idUser :    { type: GraphQLID }
+    },
+    resolve(parent, args){
+        User.findById(args.idUser).populate('Project').
+        exec(function (err, user) {
+            if (err) return handleError(err);
+            user.idProject.push(args.idProject); 
+            user.save();
+        });
+        Project.findById(args.idProject).populate('User').
+        exec(function (err, project) {
+            if (err) return handleError(err);
+            project.idUser.push(args.idUser);
+            project.save();
+        });
+        return true;
+    }
+};
+
+const deleteUserFromProject = {
+    type: ProjectType.ProjectType,
+    args:{
+        idProject : { type: GraphQLID },
+        idUser :    { type: GraphQLID }
+    },
+    resolve(parent, args){
+        User.findById(args.idUser).populate('Project').
+        exec(function (err, user) {
+            if (err) return handleError(err);
+            user.idProject.remove(args.idProject); 
+            user.save();
+        });
+        Project.findById(args.idProject).populate('User').
+        exec(function (err, project) {
+            if (err) return handleError(err);
+            project.idUser.remove(args.idUser);
+            project.save();
+        });
+        return true;
+    }
+};
+
+const deleteUser = {
+    type: UserType.UserType,
+    args:{
+        id: {type: GraphQLID}, 
+    },
+    resolve(parent, args){
+        return User.deleteOne(
+            {
+                '_id':args.id
+            }
+        )
+    }
+};
+
 module.exports.updateUser = updateUser ;
+module.exports.addUserToProject = addUserToProject ;
+module.exports.deleteUserFromProject = deleteUserFromProject ;
+module.exports.deleteUser = deleteUser ;
