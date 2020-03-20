@@ -49,7 +49,7 @@ app.post('/signup', (req, res) => {
           const token = authenticate.generateToken({ _id: req.user._id });
           res.statusCode = 200;
           res.setHeader('Content-Type', 'application/json');
-          res.json({ token: token, status: 'Successfully Logged In' });
+          res.json({ token: token, _id : req.user._id  ,status: 'Successfully Logged In' });
         });
       }
     });
@@ -59,7 +59,7 @@ app.post('/login', passport.authenticate('local'), (req, res) => {
     const token = authenticate.generateToken({ _id: req.user._id });
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json');
-    res.json({ token: token, status: 'Successfully Logged In' });
+    res.json({ token: token, _id : req.user._id, status: 'Successfully Logged In' });
   });
 
 
