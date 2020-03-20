@@ -24,24 +24,22 @@ const addClient = {
   type: ClientType.ClientType,
   args: {
     _id: {type: GraphQLID},
-    clientName : {type: GraphQLString},
-    adresse : {type: GraphQLString},
-    city : {type:GraphQLString},
-    cityCode : {type:GraphQLInt},
-    lastName: {type:GraphQLString},
-    telNumber: {type:GraphQLInt},
-    email: {type:GraphQLString}
+    corporateName : {type: GraphQLString},
+    adress : {type: GraphQLString},
+    contactLastName: {type:GraphQLString},
+    contactFirstName: {type:GraphQLString},
+    phoneNumber: {type:GraphQLInt},
+    mail: {type:GraphQLString}
   },
   resolve(parent, args) {
-    let task = new TaskType({
-      clientName:args.clientName,
-      adresse:args.adresse,
-      city:args.city,
-      cityCode:args.cityCode,
-      lastName:args.lastName,
-      telNumber:args.telNumber,
-      email:args.email
-      // idProject:args.idProject
+    let client = new Client({
+      corporateName:args.corporateName,
+      adress:args.adress,
+      contactLastName:args.contactlastName,
+      contactFirstName:args.contactFirstName,
+      phoneNumber:args.phoneNumber,
+      mail:args.mail,
+      idProject:args.idProject
     });
     return client.save();
   }
@@ -51,25 +49,23 @@ const updateClient = {
   type: ClientType.ClientType,
   args: {
     id: {type: GraphQLID},
-    clientName : {type: GraphQLString},
-    adresse : {type: GraphQLString},
-    city : {type:GraphQLString},
-    cityCode : {type:GraphQLInt},
-    lastName: {type:GraphQLString},
-    telNumber: {type:GraphQLInt},
-    email: {type:GraphQLString}
+    corporateName : {type: GraphQLString},
+    adress : {type: GraphQLString},
+    contactLastName: {type:GraphQLString},
+    contactFirstName: {type:GraphQLString},
+    phoneNumber: {type:GraphQLInt},
+    mail: {type:GraphQLString}
   },
     resolve(parent, args){
       return Client.findByIdAndUpdate(
         args.id,
         {
-          clientName:args.clientName,
-          adresse:args.adresse,
-          city:args.city,
-          cityCode:args.cityCode,
-          lastName:args.lastName,
-          telNumber:args.telNumber,
-          email:args.email,
+          corporateName:args.corporateName,
+          adress:args.adress,
+          contactLastName:args.contactLastName,
+          contactFirstName:args.contactFirstName,
+          phoneNumber:args.phoneNumber,
+          mail:args.mail,
           idProject:args.idProject
         }
       );
@@ -90,4 +86,4 @@ const deleteClient = {
 
 module.exports.addClient = addClient;
 module.exports.updateClient = updateClient;
-module.exports.deleteClient = deleteClient;
+module.exports.deleteClient = deleteClient; 

@@ -23,6 +23,7 @@ const { GraphQLObjectType,
 const addProject = {
   type: ProjectType.ProjectType,
   args:{
+      _id:                    { type: GraphQLID },
       title:                  { type: GraphQLString},
       quotePrice:             { type: GraphQLString},
       terminationPeriods:     { type: GraphQLString },
@@ -57,6 +58,40 @@ const addProject = {
   }
 }
 
+const updateProject = {
+    type: ProjectType.ProjectType,
+    args: {
+      id: {type: GraphQLID},
+      title:                  { type: GraphQLString},
+      quotePrice:             { type: GraphQLString},
+      terminationPeriods:     { type: GraphQLString },
+      startDate:              { type: GraphQLString },
+      endDate:                { type: GraphQLString },
+      status:                 { type: GraphQLString },
+      stacks:                 { type: GraphQLString },
+      costDays:               { type: GraphQLString },
+      idClient :              { type: GraphQLString },
+      idUser :                { type: GraphQLID }
+    },
+      resolve(parent, args){
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            title:              args.title,
+            quotePrice:         args.quotePrice,
+            terminationPeriods: args.terminationPeriods,
+            startDate:          args.startDate,
+            endDate:            args.endDate,
+            status:             args.status,
+            stacks:             args.stacks,
+            costDays:           args.costDays,
+            idClient:           args.idClient,
+            idUser:             args.idUser
+          }
+        );
+      }
+  };
+
 const deleteProject = {
     type: ProjectType.ProjectType,
     args:{
@@ -72,4 +107,5 @@ const deleteProject = {
 };
 
 module.exports.addProject = addProject;
+module.exports.updateProject = updateProject;
 module.exports.deleteProject = deleteProject;

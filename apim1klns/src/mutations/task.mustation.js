@@ -28,12 +28,12 @@ const addTask = {
     time: {type: GraphQLInt}
   },
   resolve(parent, args) {
-    let task = new TaskType({
+    let task = new Task({
       title:args.title,
       description:args.description,
       status:args.status,
       time:args.time,
-      // idSprint:args.idSprint
+      idSprint:args.idSprint
     });
     return task.save();
   }
@@ -49,7 +49,7 @@ const updateTask = {
     time: {type:GraphQLInt}
   },
     resolve(parent, args){
-      return TaskType.findByIdAndUpdate(
+      return Task.findByIdAndUpdate(
         args.id,
         {
           title:args.title,

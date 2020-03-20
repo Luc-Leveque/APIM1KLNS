@@ -36,7 +36,7 @@ const addSprint=  {
       dateStart:args.dateStart,
       dateEnd:args.dateEnd,
       status:args.status,
-      // idProject:args.idProject
+      idProject:args.idProject
     });
     return sprint.save();
   }

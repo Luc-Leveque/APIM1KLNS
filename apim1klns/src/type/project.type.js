@@ -15,7 +15,7 @@ const ProjectType = new GraphQLObjectType({
     fields: () => ({
         id:     { type: GraphQLID },
         title:     { type: GraphQLString },
-        quote_price:  { type: GraphQLString },
+        quotePrice:  { type: GraphQLString },
         terminationPeriods: { type: GraphQLString },
         startDate: { type: GraphQLString },
         endDate: { type: GraphQLString },
