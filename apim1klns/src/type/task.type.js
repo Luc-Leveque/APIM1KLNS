@@ -11,7 +11,7 @@ const { GraphQLObjectType,
 const TaskType = new GraphQLObjectType({
   name: 'Task',
   fields: () => ({
-    _id : {type: GraphQLID},
+    id : {type: GraphQLID},
     title: {type: GraphQLString},
     description: {type: GraphQLString},
     status: {type: GraphQLInt},

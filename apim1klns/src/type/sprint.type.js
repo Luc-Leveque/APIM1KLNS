@@ -18,7 +18,7 @@ const { GraphQLObjectType,
 const SprintType = new GraphQLObjectType({
   name: 'Sprint',
   fields: () => ({ 
-      _id : {type: GraphQLID},
+      id : {type: GraphQLID},
       title : {type: GraphQLString},
       dateStart : {type: GraphQLString},
       dateEnd : {type:GraphQLString},
