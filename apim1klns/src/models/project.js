@@ -8,9 +8,10 @@ const projectSchema = new Schema({
     startDate:String, 
     endDate:String, 
     status: String,
-    stacks: String, // à modifier
+    stacks: String, 
     costDays: String,
     idClient: { type: Schema.Types.ObjectId, ref: 'Client' },
+    idSprint: [{ type: Schema.Types.ObjectId, ref: 'Sprint' }],
     idUser: [{ type: Schema.Types.ObjectId, ref: 'User' }]
 })
 

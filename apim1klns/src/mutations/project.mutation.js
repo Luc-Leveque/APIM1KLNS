@@ -32,8 +32,8 @@ const addProject = {
       status:                 { type: GraphQLString },
       stacks:                 { type: GraphQLString },
       costDays:               { type: GraphQLString },
-      idClient :              { type: GraphQLString },
-      idUser :                { type: GraphQLID }
+      idClient :              { type: GraphQLID },
+      idUser :                { type: GraphQLID },
   },
   resolve(parent, args){
       let project = new Project({
@@ -51,7 +51,7 @@ const addProject = {
       User.findById(args.idUser).populate('Project').
       exec(function (err, user) {
           if (err) return handleError(err);
-          user.idProject.push(args.idUser); 
+          user.idProject.push(project._id); 
           user.save();
       });
       return project.save();
@@ -69,9 +69,7 @@ const updateProject = {
       endDate:                { type: GraphQLString },
       status:                 { type: GraphQLString },
       stacks:                 { type: GraphQLString },
-      costDays:               { type: GraphQLString },
-      idClient :              { type: GraphQLString },
-      idUser :                { type: GraphQLID }
+      costDays:               { type: GraphQLString }
     },
       resolve(parent, args){
         return Project.findByIdAndUpdate(
@@ -84,9 +82,7 @@ const updateProject = {
             endDate:            args.endDate,
             status:             args.status,
             stacks:             args.stacks,
-            costDays:           args.costDays,
-            idClient:           args.idClient,
-            idUser:             args.idUser
+            costDays:           args.costDays
           }
         );
       }

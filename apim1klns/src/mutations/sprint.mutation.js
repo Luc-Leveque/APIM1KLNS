@@ -23,7 +23,6 @@ const { GraphQLObjectType,
 const addSprint=  {
   type: SprintType.SprintType,
   args: {
-    _id : {type: GraphQLID},
     title : {type: GraphQLString},
     dateStart : {type: GraphQLString},
     dateEnd : {type:GraphQLInt},
@@ -35,9 +34,14 @@ const addSprint=  {
       title:args.title,
       dateStart:args.dateStart,
       dateEnd:args.dateEnd,
-      status:args.status,
-      idProject:args.idProject
+      status:args.status
     });
+    Project.findById(args.idProject).populate('Sprint').
+      exec(function (err, project) {
+          if (err) return handleError(err);
+          project.idSprint.push(sprint._id); 
+          project.save();
+      });
     return sprint.save();
   }
 };
@@ -59,8 +63,7 @@ const updateSprint = {
           title:args.title,
           dateStart:args.dateStart,
           dateEnd:args.dateEnd,
-          status:args.status,
-          idProject:args.idProject
+          status:args.status
         }
       );
     }

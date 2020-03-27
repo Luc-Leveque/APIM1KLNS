@@ -1,5 +1,4 @@
 const graphql = require('graphql');
-const SprintType= require('./sprint.type');
 
 const { GraphQLObjectType,
   GraphQLInt,
@@ -17,12 +16,6 @@ const TaskType = new GraphQLObjectType({
     description: {type: GraphQLString},
     status: {type: GraphQLInt},
     time: {type: GraphQLInt},
-    sprint: {
-      type: SprintType.SprintType,
-      resolve(parent, args) {
-        return Sprint.findById(parent.idSprint);
-      }
-    }
   })
 })
 

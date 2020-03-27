@@ -8,6 +8,5 @@ const clientSchema = new Schema({
   contactFirstName: String,
   phoneNumber: Number,
   mail: String,
-  idProject: [{ type: Schema.Types.ObjectId, ref: 'Project' }],
 })
 module.exports = mongoose.model('Client', clientSchema);

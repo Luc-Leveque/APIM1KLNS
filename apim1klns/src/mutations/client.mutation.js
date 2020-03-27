@@ -39,7 +39,6 @@ const addClient = {
       contactFirstName:args.contactFirstName,
       phoneNumber:args.phoneNumber,
       mail:args.mail,
-      idProject:args.idProject
     });
     return client.save();
   }
@@ -66,7 +65,6 @@ const updateClient = {
           contactFirstName:args.contactFirstName,
           phoneNumber:args.phoneNumber,
           mail:args.mail,
-          idProject:args.idProject
         }
       );
     }
