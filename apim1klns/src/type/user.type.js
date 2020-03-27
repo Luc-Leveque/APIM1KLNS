@@ -1,6 +1,12 @@
 const graphql = require('graphql');
 const ProjectType= require('./project.type');
 
+const User =require('../models/user');
+const Project =require('../models/project');
+const Client =require('../models/client');
+const Task = require('../models/task');
+const Sprint = require('../models/sprint');
+
 const { GraphQLObjectType,
         GraphQLInt,
         GraphQLString,

@@ -5,6 +5,6 @@ const taskSchema = new Schema({
   title: String,
   description: String,
   status: Number,
-  time: Number
+  time: Number,
 })
 module.exports = mongoose.model('Task', taskSchema);

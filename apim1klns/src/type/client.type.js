@@ -1,4 +1,5 @@
 const graphql = require('graphql');
+const ProjectType= require('./project.type');
 
 const { GraphQLObjectType,
         GraphQLInt,
@@ -17,7 +18,7 @@ const ClientType = new GraphQLObjectType({
         contactLastName:    { type: GraphQLString },
         contactFirstName:   { type: GraphQLString },
         phoneNumber:        { type: GraphQLString },
-        mail:               { type: GraphQLString },
+        mail:               { type: GraphQLString }
     })
 })
 

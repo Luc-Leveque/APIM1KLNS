@@ -23,6 +23,7 @@ const { GraphQLObjectType,
 const addProject = {
   type: ProjectType.ProjectType,
   args:{
+      _id:                    { type: GraphQLID },
       title:                  { type: GraphQLString},
       quotePrice:             { type: GraphQLString},
       terminationPeriods:     { type: GraphQLString },
@@ -31,8 +32,8 @@ const addProject = {
       status:                 { type: GraphQLString },
       stacks:                 { type: GraphQLString },
       costDays:               { type: GraphQLString },
-      idClient :              { type: GraphQLString },
-      idUser :                { type: GraphQLID }
+      idClient :              { type: GraphQLID },
+      idUser :                { type: GraphQLID },
   },
   resolve(parent, args){
       let project = new Project({
@@ -50,12 +51,42 @@ const addProject = {
       User.findById(args.idUser).populate('Project').
       exec(function (err, user) {
           if (err) return handleError(err);
-          user.idProject.push(args.idUser); 
+          user.idProject.push(project._id); 
           user.save();
       });
       return project.save();
   }
 }
+
+const updateProject = {
+    type: ProjectType.ProjectType,
+    args: {
+      id: {type: GraphQLID},
+      title:                  { type: GraphQLString},
+      quotePrice:             { type: GraphQLString},
+      terminationPeriods:     { type: GraphQLString },
+      startDate:              { type: GraphQLString },
+      endDate:                { type: GraphQLString },
+      status:                 { type: GraphQLString },
+      stacks:                 { type: GraphQLString },
+      costDays:               { type: GraphQLString }
+    },
+      resolve(parent, args){
+        return Project.findByIdAndUpdate(
+          args.id,
+          {
+            title:              args.title,
+            quotePrice:         args.quotePrice,
+            terminationPeriods: args.terminationPeriods,
+            startDate:          args.startDate,
+            endDate:            args.endDate,
+            status:             args.status,
+            stacks:             args.stacks,
+            costDays:           args.costDays
+          }
+        );
+      }
+  };
 
 const deleteProject = {
     type: ProjectType.ProjectType,
@@ -72,4 +103,5 @@ const deleteProject = {
 };
 
 module.exports.addProject = addProject;
+module.exports.updateProject = updateProject;
 module.exports.deleteProject = deleteProject;

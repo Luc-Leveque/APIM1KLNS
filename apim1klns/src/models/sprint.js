@@ -2,11 +2,10 @@ const mongoose =require('mongoose');
 const Schema = mongoose.Schema;
 
 const sprintSchema = new Schema({
-  // id: Number,
   title: String,
-  dateStart: Number,
-  dateEnd: Number,
+  dateStart: String,
+  dateEnd: String,
   status: Number,
-  idProject: String
+  idTask: [{ type: Schema.Types.ObjectId, ref: 'Task' }]
 })
 module.exports = mongoose.model('Sprint', sprintSchema);
